@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/task")
@@ -53,9 +54,9 @@ public class TaskController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getTasks")
-    public List<TaskDto> getTasksById() {
-        List<Task> tasks = service.getTaskById();
+    public List<TaskDto> getTasksById(Long id) {
+        List<Task> tasks = service.getTaskById(id);
         return taskMapper.mapToTaskDtoList(tasks);
-    }
 
+    }
 }

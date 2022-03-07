@@ -2,6 +2,8 @@ package com.crud.tasks.domain;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class TrelloCardDto {
 
@@ -9,4 +11,5 @@ public class TrelloCardDto {
     private String description;
     private String pos;
     private String listId;
+    private List<TrelloBadgeDto> badges;
 }

@@ -1,6 +1,7 @@
 package com.crud.tasks.trello.client;
 
 import com.crud.tasks.domain.CreatedTrelloCard;
+import com.crud.tasks.domain.TrelloBadgeDto;
 import com.crud.tasks.domain.TrelloBoardDto;
 import com.crud.tasks.domain.TrelloCardDto;
 import lombok.Data;
@@ -66,5 +67,25 @@ public class TrelloClient {
                 .toUri();
 
         return restTemplate.postForObject(url, null, CreatedTrelloCard.class);
+    }
+
+    public List<TrelloBadgeDto> getBadge() {
+        URI url = UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/boards/61be354380d85c7f0e9a725e/cards")
+                .queryParam("fields", "id,badges")
+                .queryParam("card_fields", "id,badges")
+                .queryParam("badges_fields", "votes,attachmentsByType")
+                .queryParam("attachmentsByType_fields", "trello")
+                .queryParam("trello_fields", "board,card")
+                .queryParam("key", trelloAppKey)
+                .queryParam("token", trelloToken)
+                .build()
+                .encode()
+                .toUri();
+
+        TrelloBadgeDto[] badgeResponse = restTemplate.getForObject(url, TrelloBadgeDto[].class);
+
+        return Optional.ofNullable(badgeResponse)
+                .map(Arrays::asList)
+                .orElse(Collections.emptyList());
     }
 }

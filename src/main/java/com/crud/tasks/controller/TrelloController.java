@@ -40,9 +40,9 @@ public class TrelloController {
 
     @GetMapping("getTrelloBadges")
     public void getTrelloBadge() {
-        List<TrelloBadgeDto> trelloBadges = trelloClient.getBadge();
-        trelloBadges.forEach((trelloBadgeDto -> {
-            System.out.println("Badge votes: " + trelloBadgeDto.getVotes());
+        List<TrelloCardDto> trelloBadges = trelloClient.getBadges();
+        trelloBadges.forEach((trelloCardDto -> {
+            System.out.println("Board id: " + trelloCardDto.getListId() + "badges: " + trelloCardDto.getBadges());
         }));
     }
 }

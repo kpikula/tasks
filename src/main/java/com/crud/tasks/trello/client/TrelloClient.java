@@ -69,8 +69,8 @@ public class TrelloClient {
         return restTemplate.postForObject(url, null, CreatedTrelloCard.class);
     }
 
-    public List<TrelloBadgeDto> getBadge() {
-        URI url = UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/boards/61be354380d85c7f0e9a725e/cards")
+    public List<TrelloBadgeDto> getBadge(String boardId) {
+        URI url = UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/boards/" + boardId + "/cards")
                 .queryParam("fields", "id,badges")
                 .queryParam("card_fields", "id,badges")
                 .queryParam("badges_fields", "votes,attachmentsByType")
@@ -85,26 +85,6 @@ public class TrelloClient {
         TrelloBadgeDto[] badgeResponse = restTemplate.getForObject(url, TrelloBadgeDto[].class);
 
         return Optional.ofNullable(badgeResponse)
-                .map(Arrays::asList)
-                .orElse(Collections.emptyList());
-    }
-
-    public List<TrelloCardDto> getBadges() {
-        URI url = UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/boards/61be354380d85c7f0e9a725e/cards")
-                .queryParam("fields", "id,badges")
-                .queryParam("card_fields", "id,badges")
-                .queryParam("badges_fields", "votes,attachmentsByType")
-                .queryParam("attachmentsByType_fields", "trello")
-                .queryParam("trello_fields", "board,card")
-                .queryParam("key", trelloAppKey)
-                .queryParam("token", trelloToken)
-                .build()
-                .encode()
-                .toUri();
-
-        TrelloCardDto[] cardResponse = restTemplate.getForObject(url, TrelloCardDto[].class);
-
-        return Optional.ofNullable(cardResponse)
                 .map(Arrays::asList)
                 .orElse(Collections.emptyList());
     }

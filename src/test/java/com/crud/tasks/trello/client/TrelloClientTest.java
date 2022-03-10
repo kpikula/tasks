@@ -44,18 +44,18 @@ class TrelloClientTest {
         trelloBoards[0] = new TrelloBoardDto("test_id", "test_board", new ArrayList<>());
         System.out.println("Trello board " + trelloBoards[0]);
 
-        URI uri = new URI("http://test/com/members/test/boards?key=test&token=test&fields=name,id&lists=all");
+        URI uri = new URI("http://test.com/members/test/boards?key=test&token=test&fields=name,id&lists=all");
 
-        lenient().when(restTemplate.getForObject(uri, TrelloBoardDto[].class)).thenReturn(trelloBoards);
+        when(restTemplate.getForObject(uri, TrelloBoardDto[].class)).thenReturn(trelloBoards);
 
         // When
         List<TrelloBoardDto> fetchedTrelloBoards = trelloClient.getTrelloBoards();
 
         // Then
-//        assertEquals(1, fetchedTrelloBoards.size());
-//        assertEquals("test_id", fetchedTrelloBoards.get(0).getId());
-//        assertEquals("test_board", fetchedTrelloBoards.get(0).getName());
-//        assertEquals(new ArrayList<>(), fetchedTrelloBoards.get(0).getLists());
+        assertEquals(1, fetchedTrelloBoards.size());
+        assertEquals("test_id", fetchedTrelloBoards.get(0).getId());
+        assertEquals("test_board", fetchedTrelloBoards.get(0).getName());
+        assertEquals(new ArrayList<>(), fetchedTrelloBoards.get(0).getLists());
     }
 
     @Test
@@ -96,9 +96,9 @@ class TrelloClientTest {
         when(trelloConfig.getTrelloToken()).thenReturn("test");
         when(trelloConfig.getTrelloUsername()).thenReturn("test");
 
-        URI uri = new URI("http://test/com/members/test/boards?key=test&token=test&fields=name,id&lists=all");
+        URI uri = new URI("http://test.com/members/test/boards?key=test&token=test&fields=name,id&lists=all");
 
-        lenient().when(restTemplate.getForObject(uri, TrelloBoardDto[].class)).thenReturn(null);
+        when(restTemplate.getForObject(uri, TrelloBoardDto[].class)).thenReturn(null);
 
         // When
         List<TrelloBoardDto> fetchedTrelloBoards = trelloClient.getTrelloBoards();

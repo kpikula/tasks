@@ -22,10 +22,7 @@ public class SimpleEmailService {
         try {
             SimpleMailMessage mailMessage = createMailMessage(mail);
             javaMailSender.send(mailMessage);
-            log.info("Email has been sent to: " + mail.getMailTo());
-            log.info("Email has been sent to cc: " + mail.getToCc());
-            log.info("Email subject: " + mail.getSubject());
-            log.info("Email body: " + mail.getMessage());
+            log.info("Email has been sent.");
         } catch (MailException e) {
             log.error("Failed to process email sending: " + e.getMessage(), e);
         }

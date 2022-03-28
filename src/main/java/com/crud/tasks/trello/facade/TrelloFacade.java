@@ -4,15 +4,14 @@ import com.crud.tasks.domain.*;
 import com.crud.tasks.mapper.TrelloMapper;
 import com.crud.tasks.service.TrelloService;
 import com.crud.tasks.trello.validator.TrelloValidator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.hibernate.bytecode.BytecodeLogger.LOGGER;
 
 @Component
+@RequiredArgsConstructor
 public class TrelloFacade {
 
     @Autowired

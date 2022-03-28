@@ -17,6 +17,7 @@ public class TrelloFacade {
     @Autowired
     private TrelloService trelloService;
 
+    @Autowired
     public List<TrelloBoardDto> trelloBoards = trelloService.fetchTrelloBoards();
 
     @Autowired

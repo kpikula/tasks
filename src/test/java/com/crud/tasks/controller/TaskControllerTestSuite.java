@@ -16,6 +16,9 @@ import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -58,7 +61,7 @@ class TaskControllerTestSuite {
         TaskDto taskDto = new TaskDto(1L, "taskDto1", "taskDto1 description");
         Task task = new Task(1L, "taskDto1", "taskDto1 description");
         when(taskMapper.mapToTask(taskDto)).thenReturn(task);
-        service.saveTask(task);
+        when(service.saveTask(task)).thenReturn(task);
         Gson gson = new Gson();
         String jsonContent = gson.toJson(taskDto);
 

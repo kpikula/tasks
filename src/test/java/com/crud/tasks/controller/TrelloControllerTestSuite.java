@@ -55,8 +55,7 @@ class TrelloControllerTestSuite {
         when(trelloFacade.fetchTrelloBoards()).thenReturn(trelloBoards);
 
         //When & Then
-        mockMvc
-                .perform(MockMvcRequestBuilders
+        mockMvc.perform(MockMvcRequestBuilders
                         .get("/v1/trello/getTrelloBoards")
                         .contentType(MediaType.APPLICATION_JSON))
                 // Trello board fields

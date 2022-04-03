@@ -3,6 +3,10 @@ package com.crud.tasks.service;
 import com.crud.tasks.domain.Task;
 import com.crud.tasks.repository.TaskRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -11,14 +15,15 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class DbServiceTestSuite {
 
-    @Autowired
+    @InjectMocks
     private DbService dbService;
 
-    @Autowired
+    @Mock
     private TaskRepository taskRepository;
 
     @Test
@@ -28,31 +33,10 @@ class DbServiceTestSuite {
                 .title("task1")
                 .build();
 
-        //When
-        Task task1 = dbService.saveTask(task);
+        when(taskRepository.save(task)).thenReturn(task);
 
-        //Then
-        assertEquals(1, taskRepository.count());
-        assertEquals("task1", task1.getTitle());
-
-        //Cleanup
-        taskRepository.deleteAll();
-        dbService.deleteTask(1L);
+        //When & Then
+        Task result = dbService.saveTask(task);
+        assertEquals(task, result);
     }
 }
-
-//    public List<Task> getAllTasks() {
-//        return repository.findAll();
-//    }
-//
-//    public Task saveTask(final Task task) {
-//        return repository.save(task);
-//    }
-//
-//    public Optional<Task> getTask(final Long id) {
-//        return repository.findById(id);
-//    }
-//
-//    public void deleteTask(final Long id) {
-//        repository.deleteById(id);
-//    }

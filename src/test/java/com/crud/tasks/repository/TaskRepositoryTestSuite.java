@@ -29,7 +29,7 @@ class TaskRepositoryTestSuite {
         List<Task> tasks = taskRepository.findAll();
 
         //Then
-        assertEquals("task1 content", tasks.get(1).getContent());
+        assertEquals("task1 content", tasks.get(0).getContent());
 
         //Cleanup
         taskRepository.deleteAll();

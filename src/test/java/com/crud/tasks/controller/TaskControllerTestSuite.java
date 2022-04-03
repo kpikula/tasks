@@ -65,7 +65,7 @@ class TaskControllerTestSuite {
         //When & Then
         mockMvc
                 .perform(MockMvcRequestBuilders
-                        .post("/v1/task/createTasktaskId=1")
+                        .post("/v1/task/createTask")
                         .contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")
                         .content(jsonContent))
